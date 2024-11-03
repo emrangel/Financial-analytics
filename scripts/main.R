@@ -80,3 +80,4 @@ hist(AMZN_2014, freq = FALSE, col="yellow", border="blue",main= "Dansidades de l
 lines(density(AMZN_2014), lwd = 2, col = 'red')
 hist(AMZN_2020, freq = FALSE, col="blue", border="blue",main= "Dansidades de los Precios AMZN en 2020", xlab = "Precios Cierre")
 lines(density(AMZN_2020), lwd = 2, col = 'red')
+
