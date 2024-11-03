@@ -3,7 +3,9 @@ library(dygraphs)
 library(xts)
 library(quantmod)
 library(dplyr)
+
 options(warn = - 1)  
+
 ######################################################
 ###Primero, generemos una función que ayude a simplificar los tipos de datos que deseamos de la fuente de 
 #información financiera.
