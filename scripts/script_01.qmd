@@ -1,12 +1,10 @@
 ---
-title: "script_01"
+title: "Data Types Financial"
 format: html
 editor: visual
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+## Introduction
 
 ## Running Code
 
@@ -29,7 +27,6 @@ You can add options to executable code like this
 start<-format(as.Date("2014-01-01"),"%Y-%m-%d")
 end<-format(as.Date("2020-07-01"),"%Y-%m-%d")
 ```
-
 
 ```{r}
 #| echo: false
@@ -87,6 +84,26 @@ dy_graficos <- list(
 htmltools::browsable(htmltools::tagList(dy_graficos))
 ```
 
+```{r}
+#| echo: false
+#-------------------------------------------------------------------
+#-------Datos tipo Transversales o Cross Sectional
+# Seleccionaremos los datos de AMZN del 2014 y del 2020. 
+# Empecemos seleccionando los aqos 2014 de AMZN que es la 1ra columna.
 
+AMZN_2014<-subset(PyV[,1], index(PyV)>="2014-01-01"& index(PyV)<="2014-12-31")
+AMZN_2014[c(1:5, nrow(AMZN_2014))]
+#Para el aqo 2020:
+AMZN_2020<-subset(PyV[,1], index(PyV)>="2020-01-01"& index(PyV)<="2020-12-31")
+AMZN_2020[c(1:5, nrow(AMZN_2020))]
+
+# Ahora, podemos tambien visualizarlo, elegimos un histograma  
+par(mfrow=c(2,1))
+
+hist(AMZN_2014, freq = FALSE, col="yellow", border="blue",main= "Dansidades de los Precios AMZN en 2014", xlab = "Precios Cierre")
+lines(density(AMZN_2014), lwd = 2, col = 'red')
+hist(AMZN_2020, freq = FALSE, col="blue", border="blue",main= "Dansidades de los Precios AMZN en 2020", xlab = "Precios Cierre")
+lines(density(AMZN_2020), lwd = 2, col = 'red')
+```
 
 The `echo: false` option disables the printing of code (only output is displayed).
