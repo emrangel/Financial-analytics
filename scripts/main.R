@@ -3,9 +3,7 @@ library(dygraphs)
 library(xts)
 library(quantmod)
 library(dplyr)
-
 options(warn = - 1)  
-
 ######################################################
 ###Primero, generemos una función que ayude a simplificar los tipos de datos que deseamos de la fuente de 
 #información financiera.
@@ -28,13 +26,17 @@ precios_volumenes <- function(simbolo)
 }
 
 # Llamamos la función para cada stock desde el 2014:
-precios_volumenes("AMZN")
-precios_volumenes("NFLX")
 precios_volumenes("IBM")
-precios_volumenes("SPY")
+precios_volumenes("ORCL")
+precios_volumenes("INTC")
+precios_volumenes("MSFT")
 
 # Juntamos los datos y renombramos las columnas:
-PyV <- merge.xts(AMZN, NFLX, IBM, SPY)
+# PyV <- merge.xts(AMZN, NFLX, IBM, MSFT)
+PyV <- merge.xts( IBM,
+                  ORCL,
+                  INTC,
+                  MSFT)
 colnames(PyV) <- c("Amazon P.Cierre","Amazon Vol", "Netflix P.Cierre","Netflix Vol", 
                    "IBM P.Cierre", "IBM Vol", "SP500 P.Cierre", "SP500 Vol")
 
@@ -67,10 +69,10 @@ htmltools::browsable(htmltools::tagList(dy_graficos))
 # Seleccionaremos los datos de AMZN del 2014 y del 2020. 
 # Empecemos seleccionando los aqos 2014 de AMZN que es la 1ra columna.
 
-AMZN_2014<-subset(PyV[,1], index(PyV)>="2014-01-01"& index(PyV)<="2014-12-31")
+AMZN_2014<-subset(PyV[,8], index(PyV)>="2015-01-01"& index(PyV)<="2014-12-31")
 AMZN_2014[c(1:5, nrow(AMZN_2014))]
 #Para el aqo 2020:
-AMZN_2020<-subset(PyV[,1], index(PyV)>="2020-01-01"& index(PyV)<="2020-12-31")
+AMZN_2020<-subset(PyV[,8], index(PyV)>="2020-01-01"& index(PyV)<="2020-12-31")
 AMZN_2020[c(1:5, nrow(AMZN_2020))]
 
 # Ahora, podemos tambien visualizarlo, elegimos un histograma  
@@ -80,4 +82,3 @@ hist(AMZN_2014, freq = FALSE, col="yellow", border="blue",main= "Dansidades de l
 lines(density(AMZN_2014), lwd = 2, col = 'red')
 hist(AMZN_2020, freq = FALSE, col="blue", border="blue",main= "Dansidades de los Precios AMZN en 2020", xlab = "Precios Cierre")
 lines(density(AMZN_2020), lwd = 2, col = 'red')
-
